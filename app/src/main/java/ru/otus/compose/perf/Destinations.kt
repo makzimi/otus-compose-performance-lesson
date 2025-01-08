@@ -9,5 +9,5 @@ object Home
 object MenuExample
 
 @Serializable
-object AnimationExample
+object FlyingCatExample
 
