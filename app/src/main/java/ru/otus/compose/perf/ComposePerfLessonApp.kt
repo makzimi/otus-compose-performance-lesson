@@ -13,8 +13,7 @@ import ru.otus.compose.perf.ui.theme.AppTheme
 import ru.otus.compose.perf.ui.theme.ComposePerfLessonTheme
 
 @Composable
-fun ComposePerfLessonApp(
-) {
+fun ComposePerfLessonApp() {
     ComposePerfLessonTheme {
         Surface(color = AppTheme.colors.background) {
             val navController = rememberNavController()
