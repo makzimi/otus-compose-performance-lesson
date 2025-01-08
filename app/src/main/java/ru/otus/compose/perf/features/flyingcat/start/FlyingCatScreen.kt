@@ -1,4 +1,4 @@
-package ru.otus.compose.perf.features.animation.finish
+package ru.otus.compose.perf.features.flyingcat.start
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
