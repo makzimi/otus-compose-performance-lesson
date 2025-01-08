@@ -28,13 +28,15 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isProfileable = true
+            isShrinkResources = true
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -107,7 +109,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.accompanist.coil)
     implementation(libs.androidx.tracing.ktx)
-    
+
     implementation(libs.kotlinx.datetime)
 
     // Swipe to refresh
