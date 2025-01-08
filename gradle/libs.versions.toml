@@ -31,6 +31,8 @@ ksp = "2.0.20-1.0.25"
 accompanistGlide = "0.12.0"
 accompanistGlideLegacy = "0.6.2"
 immutableCollection = "0.3.5"
+kotlinx-datetime = "0.6.1"
+tracing-ktx = "1.3.0-alpha02"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -66,11 +68,13 @@ androidx-paging-runtime-ktx = { group = "androidx.paging", name = "paging-runtim
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "pagingCompose" }
 bumptech-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
-coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 accompanist-coil = { group = "com.google.accompanist", name = "accompanist-coil", version.ref = "accompanistCoil" }
 accompanist-swiperefresh = { group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "accompanistSwipeRefresh" }
 accompanist-glide = { group = "com.google.accompanist", name = "accompanist-glide", version.ref = "accompanistGlide" }
 accompanist-glide-legacy = { group = "dev.chrisbanes.accompanist", name = "accompanist-glide", version.ref = "accompanistGlideLegacy" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+androidx-tracing-ktx = { module = "androidx.tracing:tracing-ktx", version.ref = "tracing-ktx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -104,11 +104,16 @@ dependencies {
     ksp(libs.glide.compiler)
     implementation(libs.accompanist.glide)
     implementation(libs.accompanist.glide.legacy)
-    implementation(libs.coil)
+    implementation(libs.coil.compose)
     implementation(libs.accompanist.coil)
+    implementation(libs.androidx.tracing.ktx)
+    
+    implementation(libs.kotlinx.datetime)
 
     // Swipe to refresh
     implementation(libs.accompanist.swiperefresh)
+
+    implementation("androidx.compose.runtime:runtime-tracing:1.0.0-beta01")
 
     testImplementation(libs.junit)
 
