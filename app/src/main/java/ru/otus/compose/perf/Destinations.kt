@@ -11,3 +11,6 @@ object MenuExample
 @Serializable
 object FlyingCatExample
 
+@Serializable
+object BouncingCircleExample
+

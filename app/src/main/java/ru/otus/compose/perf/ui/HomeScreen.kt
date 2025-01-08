@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import ru.otus.compose.perf.BouncingCircleExample
 import ru.otus.compose.perf.FlyingCatExample
 import ru.otus.compose.perf.MenuExample
 
@@ -44,6 +45,15 @@ fun HomeScreen(
             }
         ) {
             Text(text = "Flying cat example")
+        }
+
+        Button(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            onClick = {
+                navHostController.navigate(BouncingCircleExample)
+            }
+        ) {
+            Text(text = "Bouncing circle example")
         }
     }
 }

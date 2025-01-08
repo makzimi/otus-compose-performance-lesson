@@ -5,7 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import ru.otus.compose.perf.features.animation.start.FlyingCatScreen
+import ru.otus.compose.perf.features.bouncing.start.BouncingCircleScreen
+import ru.otus.compose.perf.features.flyingcat.start.FlyingCatScreen
 import ru.otus.compose.perf.features.menu.start.MenuScreen
 import ru.otus.compose.perf.ui.HomeScreen
 import ru.otus.compose.perf.ui.theme.AppTheme
@@ -31,6 +32,10 @@ fun ComposePerfLessonApp(
 
                 composable<FlyingCatExample> {
                     FlyingCatScreen()
+                }
+
+                composable<BouncingCircleExample> {
+                    BouncingCircleScreen()
                 }
             }
         }
