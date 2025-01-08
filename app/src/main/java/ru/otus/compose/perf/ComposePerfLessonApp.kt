@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import ru.otus.compose.perf.features.menu.start.MenuScreen
 import ru.otus.compose.perf.ui.HomeScreen
 import ru.otus.compose.perf.ui.theme.AppTheme
 import ru.otus.compose.perf.ui.theme.ComposePerfLessonTheme
@@ -23,15 +24,11 @@ fun ComposePerfLessonApp(
                     HomeScreen(navHostController = navController)
                 }
 
-                composable<GridExample> {
-                    HomeScreen(navHostController = navController)
+                composable<MenuExample> {
+                    MenuScreen()
                 }
 
                 composable<AnimationExample> {
-                    HomeScreen(navHostController = navController)
-                }
-
-                composable<ListExample> {
                     HomeScreen(navHostController = navController)
                 }
             }

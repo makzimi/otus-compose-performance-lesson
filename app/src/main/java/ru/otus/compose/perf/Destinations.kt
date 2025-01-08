@@ -6,10 +6,8 @@ import kotlinx.serialization.Serializable
 object Home
 
 @Serializable
-object GridExample
+object MenuExample
 
 @Serializable
 object AnimationExample
 
-@Serializable
-object ListExample
