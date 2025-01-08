@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "ComposePerfLesson"
 include(":app")
+include(":measure")
  
