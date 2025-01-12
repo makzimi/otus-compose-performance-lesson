@@ -22,14 +22,17 @@ class BaselineProfileGenerator {
     fun generateBaselineProfiles() = rule.collect(
         packageName = "ru.otus.compose.perf",
         includeInStartupProfile = true,
+        maxIterations = 3,
     ) {
         startActivityAndWait()
 
         device.findObject(By.text("Menu example")).clickAndWait(Until.newWindow(), 3_000)
         device.pressBack()
+        Thread.sleep(1000)
 
         device.findObject(By.text("Flying cat example")).clickAndWait(Until.newWindow(), 3_000)
         device.pressBack()
+        Thread.sleep(1000)
 
         device.findObject(By.text("Bouncing circle example")).clickAndWait(Until.newWindow(), 3_000)
         device.pressBack()
