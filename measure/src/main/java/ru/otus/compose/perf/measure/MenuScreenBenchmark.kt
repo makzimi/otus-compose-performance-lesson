@@ -18,7 +18,7 @@ import org.junit.runner.RunWith
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 @OptIn(ExperimentalMetricApi::class)
-class MenuScreenBenchmark : AbstractBenchmark(StartupMode.COLD) {
+class MenuScreenBenchmark : BaseBenchmark(StartupMode.COLD) {
 
     @Test
     fun accelerateHeavyScreenCompilationFull() = benchmark(CompilationMode.Full())

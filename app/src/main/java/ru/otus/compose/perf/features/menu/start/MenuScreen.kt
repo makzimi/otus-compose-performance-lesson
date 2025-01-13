@@ -61,7 +61,6 @@ fun MenuScreen(
 ) {
     val menuState by viewModel.menu.collectAsState()
 
-    // TODO: Wrap this with timezone provider
     Box(modifier = modifier.fillMaxSize()) {
         MenuScreenContent(items = menuState.items)
 
@@ -143,17 +142,11 @@ fun MenuItem(
     }
 }
 
-/**
- * TODO Improve this placeholder_vector.xml loading
- */
 @Composable
 fun imagePlaceholder() = trace("ImagePlaceholder") {
     painterResource(R.drawable.placeholder)
 }
 
-/**
- * TODO Remove the side effect from every item and hoist it to the parent composable
- */
 @Composable
 fun DateAdded(dateAdded: Instant, modifier: Modifier = Modifier) {
     val context = LocalContext.current
@@ -166,7 +159,6 @@ fun DateAdded(dateAdded: Instant, modifier: Modifier = Modifier) {
             }
         }
 
-        // TODO Wrap with a custom trace section
         context.registerReceiver(receiver, IntentFilter(Intent.ACTION_TIMEZONE_CHANGED))
 
         onDispose { context.unregisterReceiver(receiver) }
@@ -179,9 +171,6 @@ fun DateAdded(dateAdded: Instant, modifier: Modifier = Modifier) {
     )
 }
 
-/**
- * TODO remove unnecessary lazy layout
- */
 @Composable
 fun ItemIngredients(
     ingredients: List<Ingredient>,

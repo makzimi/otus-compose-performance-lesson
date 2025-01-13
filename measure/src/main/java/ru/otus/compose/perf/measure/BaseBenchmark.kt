@@ -7,7 +7,7 @@ import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.junit4.MacrobenchmarkRule
 import org.junit.Rule
 
-abstract class AbstractBenchmark(
+abstract class BaseBenchmark(
     protected val startupMode: StartupMode = StartupMode.WARM,
 
     // Just for lesson purpose

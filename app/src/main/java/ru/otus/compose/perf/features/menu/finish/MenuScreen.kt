@@ -5,10 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.aspectRatio
@@ -22,16 +24,20 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,6 +52,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.tracing.trace
 import coil.compose.AsyncImage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -61,15 +69,16 @@ fun MenuScreen(
 ) {
     val menuState by viewModel.menu.collectAsState()
 
-    // TODO: Wrap this with timezone provider
-    Box(modifier = modifier.fillMaxSize()) {
-        MenuScreenContent(items = menuState.items)
+    ProvideCurrentTimeZone {
+        Box(modifier = modifier.fillMaxSize()) {
+            MenuScreenContent(items = menuState.items)
 
-        if (menuState.items.isEmpty()) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .align(Alignment.Center)
-            )
+            if (menuState.items.isEmpty()) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                )
+            }
         }
     }
 }
@@ -143,21 +152,28 @@ fun MenuItem(
     }
 }
 
-/**
- * TODO Improve this placeholder_vector.xml loading
- */
 @Composable
 fun imagePlaceholder() = trace("ImagePlaceholder") {
-    painterResource(R.drawable.placeholder)
+    painterResource(R.drawable.placeholder_vector)
 }
 
-/**
- * TODO Remove the side effect from every item and hoist it to the parent composable
- */
 @Composable
 fun DateAdded(dateAdded: Instant, modifier: Modifier = Modifier) {
+    Text(
+        text = dateAdded.format(LocalTimeZone.current),
+        style = MaterialTheme.typography.labelMedium,
+        modifier = modifier
+    )
+}
+
+val LocalTimeZone = compositionLocalOf { TimeZone.currentSystemDefault() }
+
+@Composable
+fun ProvideCurrentTimeZone(content: @Composable () -> Unit) {
     val context = LocalContext.current
+
     var currentTimeZone: TimeZone by remember { mutableStateOf(TimeZone.currentSystemDefault()) }
+    val scope = rememberCoroutineScope()
 
     DisposableEffect(Unit) {
         val receiver = object : BroadcastReceiver() {
@@ -166,34 +182,34 @@ fun DateAdded(dateAdded: Instant, modifier: Modifier = Modifier) {
             }
         }
 
-        // TODO Wrap with a custom trace section
-        context.registerReceiver(receiver, IntentFilter(Intent.ACTION_TIMEZONE_CHANGED))
+        scope.launch(Dispatchers.IO) {
+            trace("RegisterReceiver") {
+                context.registerReceiver(receiver, IntentFilter(Intent.ACTION_TIMEZONE_CHANGED))
+            }
+        }
 
         onDispose { context.unregisterReceiver(receiver) }
     }
 
-    Text(
-        text = dateAdded.format(currentTimeZone),
-        style = MaterialTheme.typography.labelMedium,
-        modifier = modifier
+    CompositionLocalProvider(
+        value = LocalTimeZone provides currentTimeZone,
+        content = content
     )
 }
 
-/**
- * TODO remove unnecessary lazy layout
- */
 @Composable
 fun ItemIngredients(
     ingredients: List<Ingredient>,
     modifier: Modifier = Modifier,
 ) {
-    LazyRow(
+    Row(
         modifier = modifier
             .padding(4.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .horizontalScroll(rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(2.dp)
     ) {
-        items(ingredients) { ItemIngredient(it) }
+        ingredients.forEach { ItemIngredient(it) }
     }
 }
 
