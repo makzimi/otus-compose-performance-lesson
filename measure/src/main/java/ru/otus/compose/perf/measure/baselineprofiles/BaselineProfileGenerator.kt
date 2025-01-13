@@ -2,6 +2,7 @@ package ru.otus.compose.perf.measure.baselineprofiles
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
@@ -26,15 +27,14 @@ class BaselineProfileGenerator {
     ) {
         startActivityAndWait()
 
-        device.findObject(By.text("Menu example")).clickAndWait(Until.newWindow(), 3_000)
-        device.pressBack()
-        Thread.sleep(1000)
+        pressAndGoBack("Menu example")
+        pressAndGoBack("Flying cat example")
+        pressAndGoBack("Bouncing example")
+    }
 
-        device.findObject(By.text("Flying cat example")).clickAndWait(Until.newWindow(), 3_000)
-        device.pressBack()
-        Thread.sleep(1000)
-
-        device.findObject(By.text("Bouncing circle example")).clickAndWait(Until.newWindow(), 3_000)
+    private fun MacrobenchmarkScope.pressAndGoBack(buttonText: String) {
+        device.wait(Until.hasObject(By.text(buttonText)), 3_000)
+        device.findObject(By.text(buttonText)).clickAndWait(Until.newWindow(), 3_000)
         device.pressBack()
     }
 }

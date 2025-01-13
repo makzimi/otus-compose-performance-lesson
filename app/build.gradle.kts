@@ -9,6 +9,15 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        create("release") {
+            storeFile =
+                file("./keystore")
+            storePassword = "qwerty123456"
+            keyAlias = "key"
+            keyPassword = "qwerty123456"
+        }
+    }
     namespace = "ru.otus.compose.perf"
     compileSdk = 35
 
@@ -33,6 +42,7 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 

@@ -53,7 +53,7 @@ fun HomeScreen(
                 navHostController.navigate(BouncingCircleExample)
             }
         ) {
-            Text(text = "Bouncing circle example")
+            Text(text = "Bouncing example")
         }
     }
 }
