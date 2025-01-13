@@ -21,8 +21,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.layout
-import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.trace
@@ -49,7 +47,7 @@ fun BouncingCircleScreen() = trace("BouncingCircleScreen") {
             .statusBarsPadding()
     ) {
         Circle(
-            size = { size },
+            size = size,
             modifier = Modifier.align(Alignment.Center)
         )
         Button(
@@ -71,26 +69,12 @@ fun BouncingCircleScreen() = trace("BouncingCircleScreen") {
 
 @Composable
 fun Circle(
-    size: () -> Dp,
+    size: Dp,
     modifier: Modifier = Modifier,
 ) = trace("Circle") {
     Box(
         modifier = modifier
             .background(color = Color.Magenta, shape = CircleShape)
-            .layout { measurable, _ ->
-                val sizePx = size()
-                    .roundToPx()
-                    .coerceAtLeast(0)
-
-                val constraints = Constraints.fixed(
-                    width = sizePx,
-                    height = sizePx,
-                )
-
-                val placeable = measurable.measure(constraints)
-                layout(sizePx, sizePx) {
-                    placeable.place(0, 0)
-                }
-            }
+            .size(size)
     )
 }
