@@ -39,7 +39,7 @@ fun FlyingCatScreen() = trace("FlyingCatScreen") {
             Image(
                 painter = logo,
                 contentDescription = null,
-                modifier = Modifier.offset(imagePosition.x.toDp(), imagePosition.y.toDp())
+                modifier = Modifier.offset { imagePosition }
             )
         }
     }
